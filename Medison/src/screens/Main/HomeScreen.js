@@ -1,36 +1,222 @@
-// src/screens/Main/HomeScreen.js
+// src/screens/HomeScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // 아이콘
+import { useNavigation } from '@react-navigation/native'; // 내비게이션 훅
+
+// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
+// 여기서는 임시로 placeholder 이미지를 사용합니다.
+const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO'; // 상단 로고 이미지 URL
 
 function HomeScreen() {
+  const navigation = useNavigation();
+
+  // 각 메뉴 아이템 클릭 핸들러
+  const handleMenuItemPress = (menuName) => {
+    // 실제 앱에서는 각 메뉴에 맞는 화면으로 내비게이션 로직을 추가합니다.
+    // 예: navigation.navigate('IrisScanScreen');
+    alert(`${menuName} 메뉴 클릭!`); // 임시 알림
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>환영합니다! (메인 화면)</Text>
-      <Text style={styles.description}>로그인 후 접근 가능한 메인 화면입니다.</Text>
-    </View>
+    <ScrollView style={styles.scrollViewContainer}>
+      <View style={styles.container}>
+        {/* 상단 헤더 */}
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <Image source={{ uri: MEDISON_LOGO }} style={styles.headerLogo} />
+            <Text style={styles.headerMedisonText}>MEDISON</Text>
+          </View>
+          <View style={styles.headerRight}>
+            <TouchableOpacity onPress={() => alert('알림 클릭')}>
+              <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('검색 클릭')}>
+              <FontAwesome5 name="search" size={22} color="#666" style={styles.headerIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert('프로필 클릭')}>
+              <View style={styles.profilePlaceholder} /> {/* 프로필 이미지 대체 */}
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* 환영 카드 */}
+        <View style={styles.welcomeCard}>
+          <Text style={styles.welcomeTitle}>안녕하세요, 가나님</Text>
+          <Text style={styles.welcomeMessage}>오늘도 안전한 진료를 위해 함께하겠습니다</Text>
+        </View>
+
+        {/* 그리드 메뉴 */}
+        <View style={styles.gridContainer}>
+          {/* 홍채 스캔 */}
+          <TouchableOpacity style={styles.gridItem} onPress={() => handleMenuItemPress('홍채 스캔')}>
+            <View style={[styles.iconCircle, { backgroundColor: '#4a47ff' }]}>
+              <MaterialCommunityIcons name="eye" size={40} color="#fff" />
+            </View>
+            <Text style={styles.gridItemText}>홍채 스캔</Text>
+          </TouchableOpacity>
+
+          {/* 환자 목록 */}
+          <TouchableOpacity style={styles.gridItem} onPress={() => handleMenuItemPress('환자 목록')}>
+            <View style={[styles.iconCircle, { backgroundColor: '#2ecc71' }]}>
+              <FontAwesome5 name="users" size={35} color="#fff" />
+            </View>
+            <Text style={styles.gridItemText}>환자 목록</Text>
+          </TouchableOpacity>
+
+          {/* 진료 기록 */}
+          <TouchableOpacity style={styles.gridItem} onPress={() => handleMenuItemPress('진료 기록')}>
+            <View style={[styles.iconCircle, { backgroundColor: '#ff69b4' }]}>
+              <FontAwesome5 name="file-alt" size={35} color="#fff" />
+            </View>
+            <Text style={styles.gridItemText}>진료 기록</Text>
+          </TouchableOpacity>
+
+          {/* 설정 */}
+          <TouchableOpacity style={styles.gridItem} onPress={() => handleMenuItemPress('설정')}>
+            <View style={[styles.iconCircle, { backgroundColor: '#ffa500' }]}>
+              <FontAwesome5 name="cog" size={35} color="#fff" />
+            </View>
+            <Text style={styles.gridItemText}>설정</Text>
+          </TouchableOpacity>
+
+          {/* 인식 정확도 */}
+          <View style={styles.gridItem}>
+            <Text style={styles.metricValue}>99.8%</Text>
+            <Text style={styles.metricLabel}>인식 정확도</Text>
+          </View>
+
+          {/* 평균 인식 시간 */}
+          <View style={styles.gridItem}>
+            <Text style={styles.metricValue}>0.3s</Text>
+            <Text style={styles.metricLabel}>평균 인식 시간</Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    flex: 1,
+    backgroundColor: '#f0f0f0', // 전체 배경색
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
-    padding: 20,
+    paddingBottom: 20, // 하단 여백
   },
-  title: {
-    fontSize: 24,
+  header: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#fff', // 헤더 배경색
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    paddingTop: 50, // 상단 노치/상태바 고려
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLogo: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#000', // 로고 배경색
+    marginRight: 10,
+  },
+  headerMedisonText: {
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
     color: '#333',
   },
-  description: {
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerIcon: {
+    marginLeft: 20,
+  },
+  profilePlaceholder: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#ddd', // 프로필 이미지 대체 색상
+    marginLeft: 20,
+  },
+  welcomeCard: {
+    width: '90%',
+    backgroundColor: '#4a47ff', // 파란색 배경
+    borderRadius: 15,
+    padding: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  welcomeTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 5,
+  },
+  welcomeMessage: {
+    fontSize: 14,
+    color: '#fff',
+  },
+  gridContainer: {
+    width: '90%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  gridItem: {
+    width: '48%', // 두 개씩 나란히 오도록
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  iconCircle: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  gridItemText: {
     fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 5,
+  },
+  metricValue: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#4a47ff', // 파란색 강조
+    marginBottom: 5,
+  },
+  metricLabel: {
+    fontSize: 14,
     color: '#666',
-    textAlign: 'center',
-    marginBottom: 30,
   },
 });
 
