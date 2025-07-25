@@ -13,7 +13,7 @@ function PatientInfoScreen() {
   // 임시 환자 데이터 (이미지에 맞춰 업데이트)
   const patientData = {
     isHighRisk: true, // 위험군 환자 여부
-    name: '가나다',
+    name: '상상부기',
     age: '만 26세 (1999년생)',
     gender: '남',
     allergies: '없음',
@@ -21,8 +21,8 @@ function PatientInfoScreen() {
     emergencyContact: ['010-1234-5678(모)', '010-1234-5678(부)'],
     lastHospital: '한성대학교병원',
     lastVisitDate: '2025.05.08',
-    lastRecord: '고혈압 약 추가 처방',
-    specialNotes: '고혈압 환자',
+    lastRecord: '저혈압 약 추가 처방',
+    specialNotes: '저혈압 환자',
     irisAnalysis: '평소 앓는 질병과 현재 홍채 상태로 보아 심근경색과 같은 심장 질환이 의심됩니다. ~~~한 대처가 필요해보입니다.'
 
   };
