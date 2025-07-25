@@ -16,13 +16,13 @@ function FingerPrintScreen() {
 
   // 짧게 한 번 클릭했을 때 (인증 실패 시뮬레이션)
   const handleShortPress = () => {
-    Alert.alert("인증 시도", "짧게 눌러서 인증 실패 화면으로 이동합니다.");
+    Alert.alert("인증 시도", "인증 실패");
     navigation.navigate('Fail'); // FailScreen으로 이동
   };
 
   // 길게 눌렀을 때 (인증 성공 시뮬레이션)
   const handleLongPress = () => {
-    Alert.alert("인증 시도", "길게 눌러서 인증 성공 화면으로 이동합니다.");
+    Alert.alert("인증 시도", "인증 성공");
     navigation.navigate('Success'); // SuccessScreen으로 이동
   };
 
@@ -67,7 +67,6 @@ function FingerPrintScreen() {
         {/* 안내 텍스트 */}
         <Text style={styles.instructionTitle}>지문을 스캔해주세요</Text>
         <Text style={styles.instructionDetail}>센서에 손가락을 올려주세요</Text>
-        <Text style={styles.instructionDetail}>(짧게 누르면 실패, 길게 누르면 성공)</Text> {/* 안내 문구 추가 */}
       </View>
     </View>
   );

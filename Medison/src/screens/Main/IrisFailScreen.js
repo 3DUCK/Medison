@@ -3,7 +3,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // X 아이콘을 위해 필요
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'; // useNavigation 훅 임포트!
 
 // 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
 // 여기서는 임시로 placeholder 이미지를 사용합니다.
@@ -14,11 +14,14 @@ function IrisFailScreen() {
 
   const handleRescan = () => {
     // '다시 스캔하기' 버튼 클릭 시 IrisScreen으로 돌아가기
-    navigation.navigate('Iris');
+    // 'Iris'는 src/navigation/AuthNavigator.js에서 IrisScreen에 부여한 이름입니다.
+    Alert.alert("스캔 재시도", "홍채 스캔 화면으로 이동합니다.");
+    navigation.navigate('IrisScan');
   };
 
   const handleFingerprintRecognition = () => {
     // '지문 인식하기' 버튼 클릭 시 FingerPrintScreen으로 이동
+    Alert.alert("지문 인식", "지문 인식 화면으로 이동합니다.");
     navigation.navigate('FingerPrint');
   };
 

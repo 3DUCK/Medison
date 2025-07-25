@@ -101,13 +101,13 @@ function LoginScreen() {
             <Text style={styles.biometricButtonText}>지문</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.biometricButton}
             onPress={() => handleBiometricLogin('홍채')} // 홍채 버튼 클릭 시
           >
             <MaterialCommunityIcons name="eye-outline" size={24} color="#333" />
             <Text style={styles.biometricButtonText}>홍채</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
 

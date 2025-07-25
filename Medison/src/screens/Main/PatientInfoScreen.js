@@ -1,129 +1,150 @@
 // src/screens/PatientInfoScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, SafeAreaView } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
 import { useNavigation } from '@react-navigation/native';
 
 // 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
 const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO'; // 상단 로고 이미지 URL
+const PROFILE_PLACEHOLDER = 'https://placehold.co/100x100/CCCCCC/FFFFFF?text=👤'; // 프로필 이미지 대체 URL
 
 function PatientInfoScreen() {
   const navigation = useNavigation();
 
-  // 임시 환자 데이터
+  // 임시 환자 데이터 (이미지에 맞춰 업데이트)
   const patientData = {
-    name: '김메디',
-    age: '35세',
-    id: 'P1234567',
-    dob: '1989.05.15',
+    isHighRisk: true, // 위험군 환자 여부
+    name: '가나다',
+    age: '만 26세 (1999년생)',
     gender: '남',
-    bloodType: 'A형 (Rh+)',
-    bloodPressure: '120/80 mmHg',
-    heartRate: '72 bpm',
-    temperature: '36.5 °C',
-    respiratoryRate: '16 회/분',
-    consciousness: '명료',
-    notes: '특이사항 없음',
+    allergies: '없음',
+    medication: '히드로클로로티아지드',
+    emergencyContact: ['010-1234-5678(모)', '010-1234-5678(부)'],
+    lastHospital: '한성대학교병원',
+    lastVisitDate: '2025.05.08',
+    lastRecord: '고혈압 약 추가 처방',
+    specialNotes: '고혈압 환자',
+    irisAnalysis: '평소 앓는 질병과 현재 홍채 상태로 보아 심근경색과 같은 심장 질환이 의심됩니다. ~~~한 대처가 필요해보입니다.'
+
   };
 
-  const handleEmergency = () => {
-    // 응급 상황 발생 버튼 클릭 시 로직
-    alert('응급 상황 발생! 관련 부서에 알림을 전송합니다.');
-    // 실제 응급 상황 처리 화면으로 내비게이션 또는 API 호출 로직 추가
+  const handleGoToMainMenu = () => {
+    // '메인 메뉴로 가기' 버튼 클릭 시 홈 화면으로 이동
+    // HomeScreen은 MainNavigator의 'Home' 스크린으로 등록되어 있습니다.
+    navigation.navigate('Home');
   };
 
   return (
-    <ScrollView style={styles.scrollViewContainer}>
-      <View style={styles.container}>
-        {/* 상단 헤더 (HomeScreen과 유사) */}
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <Image source={{ uri: MEDISON_LOGO }} style={styles.headerLogo} />
-            <Text style={styles.headerMedisonText}>MEDISON</Text>
-          </View>
-          <View style={styles.headerRight}>
-            <TouchableOpacity onPress={() => alert('알림 클릭')}>
-              <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('검색 클릭')}>
-              <FontAwesome5 name="search" size={22} color="#666" style={styles.headerIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('프로필 클릭')}>
-              <View style={styles.profilePlaceholder} /> {/* 프로필 이미지 대체 */}
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView style={styles.safeArea}>
+      {/* 상단 헤더 (ScrollView 외부에 위치하여 스크롤되지 않도록 함) */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Image source={{ uri: MEDISON_LOGO }} style={styles.headerLogo} />
+          <Text style={styles.headerMedisonText}>MEDISON</Text>
         </View>
-
-        {/* 환자 정보 카드 */}
-        <View style={styles.patientCard}>
-          <View style={styles.patientSummary}>
-            <Text style={styles.patientName}>{patientData.name}</Text>
-            <Text style={styles.patientAge}>{patientData.age}</Text>
-          </View>
-          <Text style={styles.cardTitle}>환자 정보</Text>
-
-          {/* 정보 목록 */}
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>환자 ID</Text>
-            <Text style={styles.infoValue}>{patientData.id}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>생년월일</Text>
-            <Text style={styles.infoValue}>{patientData.dob}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>성별</Text>
-            <Text style={styles.infoValue}>{patientData.gender}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>혈액형</Text>
-            <Text style={styles.infoValue}>{patientData.bloodType}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>혈압</Text>
-            <Text style={styles.infoValue}>{patientData.bloodPressure}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>심박수</Text>
-            <Text style={styles.infoValue}>{patientData.heartRate}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>체온</Text>
-            <Text style={styles.infoValue}>{patientData.temperature}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>호흡수</Text>
-            <Text style={styles.infoValue}>{patientData.respiratoryRate}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>의식 상태</Text>
-            <Text style={styles.infoValue}>{patientData.consciousness}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>특이사항</Text>
-            <Text style={styles.infoValue}>{patientData.notes}</Text>
-          </View>
-
-          {/* 응급 상황 발생 버튼 */}
-          <TouchableOpacity style={styles.emergencyButton} onPress={handleEmergency}>
-            <Text style={styles.emergencyButtonText}>응급 상황 발생</Text>
+        <View style={styles.headerRight}>
+          <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
+            <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Alert.alert('검색', '검색 기능은 아직 구현되지 않았습니다.')}>
+            <FontAwesome5 name="search" size={22} color="#666" style={styles.headerIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Alert.alert('프로필', '프로필 기능은 아직 구현되지 않았습니다.')}>
+            <View style={styles.profilePlaceholder} /> {/* 프로필 이미지 대체 */}
           </TouchableOpacity>
         </View>
       </View>
-    </ScrollView>
+
+      {/* ScrollView가 헤더를 제외한 나머지 공간을 채우도록 flex: 1 적용 */}
+      <ScrollView
+        style={styles.scrollViewContainer}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={true} // 스크롤바 표시 (디버깅용)
+      >
+        {/* 환자 정보 카드 */}
+        <View style={styles.patientCard}>
+          {/* 위험군 환자 헤더 */}
+          {patientData.isHighRisk && (
+            <View style={styles.riskHeader}>
+              <Text style={styles.riskHeaderText}>위험군 환자</Text>
+            </View>
+          )}
+
+          {/* 프로필 이미지 및 기본 정보 */}
+          <View style={styles.profileSection}>
+            <Image source={{ uri: PROFILE_PLACEHOLDER }} style={styles.profileImage} />
+            <View style={styles.profileInfo}>
+              <View style={styles.infoRowInline}>
+                <Text style={styles.infoLabel}>이름: </Text>
+                <Text style={styles.infoValue}>{patientData.name}</Text>
+              </View>
+              <View style={styles.infoRowInline}>
+                <Text style={styles.infoLabel}>나이: </Text>
+                <Text style={styles.infoValue}>{patientData.age}</Text>
+              </View>
+              <View style={styles.infoRowInline}>
+                <Text style={styles.infoLabel}>성별: </Text>
+                <Text style={styles.infoValue}>{patientData.gender}</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* 상세 정보 */}
+          <View style={styles.detailSection}>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>알레르기:</Text>
+              <Text style={styles.infoValue}>{patientData.allergies}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>복용약:</Text>
+              <Text style={styles.infoValue}>{patientData.medication}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>비상 연락처:</Text>
+              {/* 배열을 map할 때 각 Text 컴포넌트를 <Text>로 감싸고 고유 key를 부여 */}
+              {patientData.emergencyContact.map((contact, index) => (
+                <Text key={index} style={styles.infoValue}>{contact}</Text>
+              ))}
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>최근 진료 병원:</Text>
+              <Text style={styles.infoValue}>{patientData.lastHospital}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>최근 진료 날짜:</Text>
+              <Text style={styles.infoValue}>{patientData.lastVisitDate}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>최근 진료 기록:</Text>
+              <Text style={styles.infoValue}>{patientData.lastRecord}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>특이사항:</Text>
+              <Text style={styles.infoValue}>{patientData.specialNotes}</Text>
+            </View>
+            <View style={styles.infoRowBlock}>
+              <Text style={styles.infoLabel}>홍채 분석 결과:</Text>
+              <Text style={styles.infoValue}>{patientData.irisAnalysis}</Text>
+            </View>
+            {/* 스크롤 테스트를 위한 더미 텍스트 추가 */}
+            <Text style={styles.infoValue}>{patientData.dummyLongText}</Text>
+          </View>
+
+          {/* 메인 메뉴로 가기 버튼 */}
+          <TouchableOpacity style={styles.mainMenuButton} onPress={handleGoToMainMenu}>
+            <Text style={styles.mainMenuButtonText}>메인 메뉴로 가기</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    flex: 1,
+  safeArea: {
+    flex: 1, // SafeAreaView가 화면 전체를 채우도록 함
     backgroundColor: '#f0f0f0', // 전체 배경색
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingBottom: 20, // 하단 여백
   },
   header: {
     width: '100%',
@@ -135,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // 헤더 배경색
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    paddingTop: 50, // 상단 노치/상태바 고려
+    // paddingTop는 SafeAreaView가 처리하므로 제거하거나 조절
   },
   headerLeft: {
     flexDirection: 'row',
@@ -167,8 +188,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd', // 프로필 이미지 대체 색상
     marginLeft: 20,
   },
+  scrollViewContainer: {
+    flex: 1, // ScrollView가 헤더를 제외한 나머지 공간을 채우도록 함
+    backgroundColor: '#f0f0f0', // ScrollView 배경색
+  },
+  contentContainer: { // ScrollView의 내부 콘텐츠 컨테이너 스타일 (contentContainerStyle prop 사용)
+    alignItems: 'center',
+    paddingBottom: 20, // 하단 여백
+    flexGrow: 1, // 내용이 짧을 때도 ScrollView가 전체 공간을 차지하도록 함
+    paddingHorizontal: 20, // 좌우 여백을 contentContainer에 적용
+  },
   patientCard: {
-    width: '90%',
+    width: '100%', // contentContainer의 paddingHorizontal을 사용하므로 width: '100%'로 변경
     backgroundColor: '#fff', // 흰색 카드 배경
     borderRadius: 15,
     padding: 20,
@@ -179,60 +210,68 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  patientSummary: {
+  riskHeader: {
+    backgroundColor: '#e74c3c', // 빨간색 배경
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignSelf: 'flex-start', // 카드 왼쪽 상단에 위치
+    marginBottom: 20,
+  },
+  riskHeaderText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  profileSection: {
     flexDirection: 'row',
-    alignItems: 'baseline',
-    marginBottom: 15,
-    paddingBottom: 10,
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
-  patientName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginRight: 10,
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50, // 원형
+    backgroundColor: '#ccc', // 이미지 없을 시 배경색
+    marginRight: 20,
   },
-  patientAge: {
-    fontSize: 16,
-    color: '#666',
+  profileInfo: {
+    flex: 1,
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-  },
-  infoRow: {
+  infoRowInline: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  detailSection: {
+    marginBottom: 20,
+  },
+  infoRowBlock: {
     marginBottom: 10,
-    paddingVertical: 5,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#eee',
   },
   infoLabel: {
     fontSize: 16,
     color: '#666',
-    flex: 1, // 공간 분배
+    marginBottom: 2,
   },
   infoValue: {
     fontSize: 16,
     fontWeight: '500',
     color: '#333',
-    flex: 2, // 공간 분배
-    textAlign: 'right', // 오른쪽 정렬
+    marginLeft: 5, // 인라인일 경우 라벨과의 간격
   },
-  emergencyButton: {
+  mainMenuButton: {
     width: '100%',
     height: 50,
-    backgroundColor: '#e74c3c', // 빨간색 버튼
+    backgroundColor: '#4a47ff', // 파란색 버튼
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
-  emergencyButtonText: {
+  mainMenuButtonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',

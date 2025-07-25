@@ -1,7 +1,7 @@
 // src/screens/IrisScanScreen.js
 
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from 'react'; // useEffect는 이제 필요 없으므로 제거
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'; // Alert 추가
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // 홍채 아이콘을 위해 필요
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 뒤로가기 아이콘
 import { useNavigation } from '@react-navigation/native';
@@ -17,23 +17,34 @@ function IrisScanScreen() {
     navigation.goBack(); // 이전 화면으로 돌아가기
   };
 
-  // 지문 화면과 유사하게, 3초 후 랜덤하게 성공/실패 화면으로 이동하는 임시 로직 추가
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const isSuccess = Math.random() > 0.5; // 50% 확률로 성공/실패
-      if (isSuccess) {
-        navigation.navigate('IrisSuccess'); // 성공 시 Success 화면으로
-      } else {
-        navigation.navigate('IrisFail'); // 실패 시 Fail 화면으로
-      }
-    }, 3000); // 3초 후 이동
+  // 짧게 한 번 클릭했을 때 (인증 실패 시뮬레이션)
+  const handleShortPress = () => {
+    Alert.alert("스캔 시도", "스캔 실패");
+    navigation.navigate('IrisFail'); // IrisFailScreen으로 이동
+  };
 
-    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 클리어
-  }, [navigation]);
+  // 길게 눌렀을 때 (인증 성공 시뮬레이션)
+  const handleLongPress = () => {
+    Alert.alert("스캔 시도", "스캔 완료");
+    navigation.navigate('IrisSuccess'); // IrisSuccessScreen으로 이동
+  };
+
+  // 이전의 자동 전환 useEffect는 제거합니다. 이제 사용자 상호작용으로 전환됩니다.
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     const isSuccess = Math.random() > 0.5;
+  //     if (isSuccess) {
+  //       navigation.navigate('IrisSuccess');
+  //     } else {
+  //       navigation.navigate('IrisFail');
+  //     }
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
-      {/* 뒤로가기 버튼 (선택 사항) */}
+      {/* 뒤로가기 버튼 */}
       <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
         <FontAwesome5 name="arrow-left" size={20} color="#fff" />
         <Text style={styles.backButtonText}>뒤로</Text>
@@ -47,10 +58,14 @@ function IrisScanScreen() {
 
       {/* 홍채 스캔 카드 컨테이너 */}
       <View style={styles.card}>
-        {/* 홍채 아이콘 영역 */}
-        <View style={styles.irisIconContainer}>
+        {/* 홍채 아이콘 영역 - TouchableOpacity로 감싸서 클릭 이벤트 추가 */}
+        <TouchableOpacity
+          style={styles.irisIconContainer}
+          onPress={handleShortPress} // 짧게 누르면 IrisFailScreen
+          onLongPress={handleLongPress} // 길게 누르면 IrisSuccessScreen
+        >
           <MaterialCommunityIcons name="eye-outline" size={80} color="#ccc" /> {/* 홍채 아이콘 */}
-        </View>
+        </TouchableOpacity>
 
         {/* 안내 텍스트 */}
         <Text style={styles.instructionTitle}>홍채를 스캔해주세요</Text>
