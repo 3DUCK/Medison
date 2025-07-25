@@ -3,7 +3,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from '../screens/Main/HomeScreen'; // 경로 확인
+import HomeScreen from '../screens/main/HomeScreen'; // 경로 확인
 
 const MainStack = createStackNavigator();
 

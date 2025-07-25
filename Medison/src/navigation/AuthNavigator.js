@@ -3,10 +3,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginScreen from '../screens/Auth/LoginScreen'; // 경로 확인
-import FingerPrintScreen from '../screens/Auth/FingerPrintScreen'; // 경로 확인
-import SuccessScreen from '../screens/Auth/SuccessScreen';
-import FailScreen from '../screens/Auth/FailScreen';
+import LoginScreen from '../screens/auth/LoginScreen'; // 경로 확인
+import FingerPrintScreen from '../screens/auth/FingerPrintScreen'; // 경로 확인
+import SuccessScreen from '../screens/auth/SuccessScreen';
+import FailScreen from '../screens/auth/FailScreen';
 
 const AuthStack = createStackNavigator();
 
