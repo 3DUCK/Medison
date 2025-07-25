@@ -56,7 +56,7 @@ function FailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0', // 이미지와 유사한 밝은 배경색
+    backgroundColor: '#ffffff', // 이미지와 유사한 밝은 배경색
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

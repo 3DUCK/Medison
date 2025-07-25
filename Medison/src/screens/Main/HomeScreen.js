@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } fr
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import MEDISON_LOGO from '../../constants/medisonLogo';
+import MEDISON_TEXT_LOGO from '../../constants/medisonTextLogo';
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ function HomeScreen() {
         {/* 상단 헤더 */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={MEDISON_LOGO} style={styles.logo} />
+            <Image source={MEDISON_TEXT_LOGO} style={styles.logo} />
           </View>
           <View style={styles.headerRight}>
             <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
@@ -43,8 +43,8 @@ function HomeScreen() {
 
         {/* 환영 카드 */}
         <View style={styles.welcomeCard}>
-          <Text style={styles.welcomeTitle}>안녕하세요, 가나님</Text>
-          <Text style={styles.welcomeMessage}>오늘도 안전한 진료를 위해 함께하겠습니다</Text>
+          <Text style={styles.welcomeTitle}>안녕하세요, 상상냥이님</Text>
+          <Text style={styles.welcomeMessage}>오늘도 골든 타임 확보를 위해 함께하겠습니다</Text>
         </View>
 
         {/* 그리드 메뉴 */}
@@ -125,8 +125,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 300,
-    height: 170,
+    width: 150,
+    height: 50,
+    resizeMode: 'contain', // 이미지 비율 유지
     backgroundColor: 'transparent',
     marginRight: 10,
     marginBottom: 10,

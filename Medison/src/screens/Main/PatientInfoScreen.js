@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, SafeAreaView } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
 import { useNavigation } from '@react-navigation/native';
-import MEDISON_LOGO from '../../constants/medisonLogo';
+import MEDISON_TEXT_LOGO from '../../constants/medisonTextLogo';
 import PROFILE_PLACEHOLDER from '../../constants/boogi';
 
 function PatientInfoScreen() {
@@ -37,7 +37,7 @@ function PatientInfoScreen() {
     <SafeAreaView style={styles.safeArea}>
       {/* 상단 헤더 (ScrollView 외부에 위치하여 스크롤되지 않도록 함) */}
       <View style={styles.header}>
-        <Image source={MEDISON_LOGO} style={styles.logo} />
+        <Image source={MEDISON_TEXT_LOGO} style={styles.logo} />
         <View style={styles.headerRight}>
           <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
             <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
@@ -154,9 +154,11 @@ const styles = StyleSheet.create({
     // paddingTop는 SafeAreaView가 처리하므로 제거하거나 조절
   },
   logo: {
-    width: 300,
-    height: 170,
+    width: 150,
+    height: 50,
+    resizeMode: 'contain', // 이미지 비율 유지
     backgroundColor: 'transparent',
+    marginRight: 10,
     marginBottom: 10,
   },
   headerRight: {
