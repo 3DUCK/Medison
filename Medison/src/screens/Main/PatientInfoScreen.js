@@ -139,7 +139,7 @@ function PatientInfoScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1, // SafeAreaView가 화면 전체를 채우도록 함
-    backgroundColor: '#f0f0f0', // 전체 배경색
+    backgroundColor: '#ffffff', // 전체 배경색
   },
   header: {
     width: '100%',
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1, // ScrollView가 헤더를 제외한 나머지 공간을 채우도록 함
-    backgroundColor: '#f0f0f0', // ScrollView 배경색
+    backgroundColor: '#ffffff', // ScrollView 배경색
   },
   contentContainer: { // ScrollView의 내부 콘텐츠 컨테이너 스타일 (contentContainerStyle prop 사용)
     alignItems: 'center',

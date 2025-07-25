@@ -12,11 +12,11 @@ const AuthStack = createStackNavigator();
 
 function AuthNavigator() {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen name="FingerPrint" component={FingerPrintScreen} />
-      <AuthStack.Screen name="Success" component={SuccessScreen} />
-      <AuthStack.Screen name="Fail" component={FailScreen} />
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="Login" component={LoginScreen} options={{ title: ""}} />
+      <AuthStack.Screen name="FingerPrint" component={FingerPrintScreen} options={{ title: "지문 인식"}}/>
+      <AuthStack.Screen name="Success" component={SuccessScreen} options={{ title: "지문 인식 성공"}}/>
+      <AuthStack.Screen name="Fail" component={FailScreen} options={{ title: "지문 인식 실패"}}/>
       {/* 회원가입 화면이 있다면 여기에 추가: <AuthStack.Screen name="Register" component={RegisterScreen} /> */}
     </AuthStack.Navigator>
   );

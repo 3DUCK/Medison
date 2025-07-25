@@ -101,7 +101,7 @@ function HomeScreen() {
 const styles = StyleSheet.create({
   scrollViewContainer: {
     flex: 1,
-    backgroundColor: '#f0f0f0', // 전체 배경색
+    backgroundColor: '#ffffff', // 전체 배경색
   },
   container: {
     flex: 1,
