@@ -1,29 +1,38 @@
 // src/screens/SuccessScreen.js
 
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 체크마크 아이콘을 위해 필요
+import React, { useEffect } from 'react'; // useEffect는 이제 자동 전환이 아니므로 제거해도 됨 (선택)
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'; // TouchableOpacity 추가
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-// 여기서는 임시로 placeholder 이미지를 사용합니다.
-const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO'; // 임시 로고 이미지 URL
+const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO';
 
 function SuccessScreen() {
   const navigation = useNavigation();
 
+  // 자동 전환 로직을 제거하거나, 버튼이 눌리기 전까지 대기하도록 수정할 수 있습니다.
+  // 여기서는 버튼 클릭 시에만 전환되도록 useEffect를 제거합니다.
+  // 만약 일정 시간 후 자동 전환도 유지하고 싶다면, useEffect를 남겨두세요.
+  
   useEffect(() => {
-    // 3초 후 메인 화면으로 자동 전환 (예시)
     const timer = setTimeout(() => {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Main' }], // AppNavigator에서 MainNavigator에 부여한 이름 'Main'
+        routes: [{ name: 'Main' }],
       });
     }, 3000); // 3초 (3000ms)
 
-    // 컴포넌트 언마운트 시 타이머 클리어
     return () => clearTimeout(timer);
   }, [navigation]);
+  
+
+  const handleGoToMain = () => {
+    // "메인 화면으로" 버튼 클릭 시 Main 스택으로 전환
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Main' }], // AppNavigator에서 MainNavigator에 부여한 이름 'Main'
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -43,6 +52,11 @@ function SuccessScreen() {
         {/* 안내 텍스트 */}
         <Text style={styles.title}>인증 완료!</Text>
         <Text style={styles.description}>성공적으로 인증되었습니다</Text>
+
+        {/* 메인 화면으로 이동 버튼 */}
+        <TouchableOpacity style={styles.mainButton} onPress={handleGoToMain}>
+          <Text style={styles.mainButtonText}>메인 화면으로</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -106,6 +120,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
+    marginBottom: 30, // 버튼과의 간격
+  },
+  mainButton: { // 새로 추가된 버튼 스타일
+    width: '100%',
+    height: 50,
+    backgroundColor: '#4a47ff', // 파란색 버튼
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10, // 상단 텍스트와의 간격
+  },
+  mainButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
