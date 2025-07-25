@@ -5,9 +5,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, Saf
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
 import { useNavigation } from '@react-navigation/native';
 import MEDISON_LOGO from '../../constants/medisonLogo';
-
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-const PROFILE_PLACEHOLDER = 'https://placehold.co/100x100/CCCCCC/FFFFFF?text=👤'; // 프로필 이미지 대체 URL
+import PROFILE_PLACEHOLDER from '../../constants/boogi';
 
 function PatientInfoScreen() {
   const navigation = useNavigation();
@@ -70,7 +68,7 @@ function PatientInfoScreen() {
 
           {/* 프로필 이미지 및 기본 정보 */}
           <View style={styles.profileSection}>
-            <Image source={{ uri: PROFILE_PLACEHOLDER }} style={styles.profileImage} />
+            <Image source={PROFILE_PLACEHOLDER} style={styles.profileImage} />
             <View style={styles.profileInfo}>
               <View style={styles.infoRowInline}>
                 <Text style={styles.infoLabel}>이름: </Text>
@@ -222,7 +220,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50, // 원형
-    backgroundColor: '#ccc', // 이미지 없을 시 배경색
+    backgroundColor: '#fff', // 이미지 없을 시 배경색
     marginRight: 20,
   },
   profileInfo: {
