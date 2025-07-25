@@ -1,3 +1,9 @@
+
+import { LogBox } from 'react-native'; // LogBox를 임포트합니다.
+
+LogBox.ignoreAllLogs();
+
+
 import { registerRootComponent } from 'expo';
 
 import App from './src/App';

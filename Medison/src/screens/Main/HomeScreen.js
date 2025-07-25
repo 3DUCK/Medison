@@ -1,30 +1,23 @@
 // src/screens/HomeScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'; // Alert 추가
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // 아이콘
-import { useNavigation } from '@react-navigation/native'; // 내비게이션 훅
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-// 여기서는 임시로 placeholder 이미지를 사용합니다.
-const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO'; // 상단 로고 이미지 URL
+const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO';
 
 function HomeScreen() {
   const navigation = useNavigation();
 
-  // 각 메뉴 아이템 클릭 핸들러
   const handleMenuItemPress = (menuName) => {
     if (menuName === '홍채 스캔') {
-      // '홍채 스캔' 버튼을 누르면 Auth Navigator의 'Iris' 스크린으로 이동
-      // 중첩 내비게이션: 'Auth'는 AppNavigator에 등록된 AuthNavigator의 이름
-      // { screen: 'Iris' }는 AuthNavigator 내의 'Iris' 스크린을 의미
-      navigation.navigate('IrisScan');
+      navigation.navigate('Main', { screen: 'IrisScan' }); // Auth Navigator의 'Iris' 스크린으로 이동
     } else if (menuName === '환자 목록') {
-      // '환자 목록' 버튼을 누르면 Main Navigator 내의 'PatientInfo' 화면으로 이동
-      navigation.navigate('PatientInfo');
+      navigation.navigate('PatientInfo'); // Main Navigator 내의 'PatientInfo' 화면으로 이동
     } else {
-      Alert.alert("메뉴 클릭", `${menuName} 메뉴 클릭! (기능 미구현)`); // 임시 알림
+      Alert.alert("메뉴 클릭", `${menuName} 메뉴 클릭! (기능 미구현)`);
     }
   };
 
@@ -45,7 +38,7 @@ function HomeScreen() {
               <FontAwesome5 name="search" size={22} color="#666" style={styles.headerIcon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => Alert.alert('프로필', '프로필 기능은 아직 구현되지 않았습니다.')}>
-              <View style={styles.profilePlaceholder} /> {/* 프로필 이미지 대체 */}
+              <View style={styles.profilePlaceholder} />
             </TouchableOpacity>
           </View>
         </View>
