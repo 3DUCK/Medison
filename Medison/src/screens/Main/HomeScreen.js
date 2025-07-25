@@ -1,7 +1,7 @@
 // src/screens/HomeScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'; // Alert 추가
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // 아이콘
 import { useNavigation } from '@react-navigation/native'; // 내비게이션 훅
@@ -15,9 +15,17 @@ function HomeScreen() {
 
   // 각 메뉴 아이템 클릭 핸들러
   const handleMenuItemPress = (menuName) => {
-    // 실제 앱에서는 각 메뉴에 맞는 화면으로 내비게이션 로직을 추가합니다.
-    // 예: navigation.navigate('IrisScanScreen');
-    alert(`${menuName} 메뉴 클릭!`); // 임시 알림
+    if (menuName === '홍채 스캔') {
+      // '홍채 스캔' 버튼을 누르면 Auth Navigator의 'Iris' 스크린으로 이동
+      // 중첩 내비게이션: 'Auth'는 AppNavigator에 등록된 AuthNavigator의 이름
+      // { screen: 'Iris' }는 AuthNavigator 내의 'Iris' 스크린을 의미
+      navigation.navigate('IrisScan');
+    } else if (menuName === '환자 목록') {
+      // '환자 목록' 버튼을 누르면 Main Navigator 내의 'PatientInfo' 화면으로 이동
+      navigation.navigate('PatientInfo');
+    } else {
+      Alert.alert("메뉴 클릭", `${menuName} 메뉴 클릭! (기능 미구현)`); // 임시 알림
+    }
   };
 
   return (
@@ -30,13 +38,13 @@ function HomeScreen() {
             <Text style={styles.headerMedisonText}>MEDISON</Text>
           </View>
           <View style={styles.headerRight}>
-            <TouchableOpacity onPress={() => alert('알림 클릭')}>
+            <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
               <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('검색 클릭')}>
+            <TouchableOpacity onPress={() => Alert.alert('검색', '검색 기능은 아직 구현되지 않았습니다.')}>
               <FontAwesome5 name="search" size={22} color="#666" style={styles.headerIcon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('프로필 클릭')}>
+            <TouchableOpacity onPress={() => Alert.alert('프로필', '프로필 기능은 아직 구현되지 않았습니다.')}>
               <View style={styles.profilePlaceholder} /> {/* 프로필 이미지 대체 */}
             </TouchableOpacity>
           </View>

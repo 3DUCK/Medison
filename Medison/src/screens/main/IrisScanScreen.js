@@ -1,4 +1,4 @@
-// src/screens/IrisScreen.js
+// src/screens/IrisScanScreen.js
 
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 // 여기서는 임시로 placeholder 이미지를 사용합니다.
 const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO'; // 임시 로고 이미지 URL
 
-function IrisScreen() {
+function IrisScanScreen() {
   const navigation = useNavigation();
 
   const handleGoBack = () => {
@@ -22,9 +22,9 @@ function IrisScreen() {
     const timer = setTimeout(() => {
       const isSuccess = Math.random() > 0.5; // 50% 확률로 성공/실패
       if (isSuccess) {
-        navigation.navigate('Success'); // 성공 시 Success 화면으로
+        navigation.navigate('IrisSuccess'); // 성공 시 Success 화면으로
       } else {
-        navigation.navigate('Fail'); // 실패 시 Fail 화면으로
+        navigation.navigate('IrisFail'); // 실패 시 Fail 화면으로
       }
     }, 3000); // 3초 후 이동
 
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IrisScreen;
+export default IrisScanScreen;
