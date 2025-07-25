@@ -1,27 +1,19 @@
 // src/screens/LoginScreen.js
 
-import React, { useState } from 'react'; // useState 추가 (ID/PW 입력 필드 때문에 필요할 수 있음)
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'; // TextInput, TouchableOpacity, Image 추가
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // 아이콘
-import { useNavigation } from '@react-navigation/native'; // useNavigation 훅 임포트!
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-// 여기서는 임시로 placeholder 이미지를 사용합니다.
-const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO'; // 임시 로고 이미지 URL
-
-// onLoginSuccess prop은 이제 필요 없으므로 제거합니다.
-// 대신 navigation 객체를 직접 사용합니다.
 function LoginScreen() {
-  const navigation = useNavigation(); // 내비게이션 객체 가져오기
+  const navigation = useNavigation();
 
-  // 이미지와 같은 UI를 위해 userId, password 상태 유지
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // 실제 로그인 로직 (ID/PW 유효성 검사 등)은 여기에 추가될 것입니다.
-    // 현재는 프로토타입이므로 바로 메인 화면으로 전환합니다.
     if (userId.trim() === '' || password.trim() === '') {
       Alert.alert("로그인 실패", "사용자 ID와 비밀번호를 입력해주세요.");
       return;
@@ -30,40 +22,35 @@ function LoginScreen() {
     Alert.alert("로그인 시도", "메인 화면으로 이동합니다.");
     console.log('네비게이션 시도: Main 스택으로 리셋');
 
-    // React Navigation의 reset 메서드를 사용하여 Auth 스택을 제거하고 Main 스택으로 전환합니다.
-    // 'Main'은 src/navigation/AppNavigator.js에서 MainNavigator에 부여한 이름입니다.
     navigation.reset({
-      index: 0, // 스택의 첫 번째 화면으로 이동
-      routes: [{ name: 'Main' }], // 목표 스택의 이름
+      index: 0,
+      routes: [{ name: 'Main' }],
     });
   };
 
   const handleBiometricLogin = (type) => {
     if (type === '지문') {
-      // AuthNavigator 내의 FingerPrint 화면으로 이동
-      navigation.navigate('FingerPrint'); // AuthNavigator에서 FingerPrintScreen에 부여한 이름 'FingerPrint'
+      navigation.navigate('FingerPrint');
     } else {
       Alert.alert("생체 인증", `${type} 인증 기능은 아직 구현되지 않았습니다.`);
-      // 홍채 버튼 로직 (예: navigation.navigate('IrisScan');)
     }
   };
 
   const handleRegister = () => {
     Alert.alert("회원가입", "회원가입 화면으로 이동합니다. (현재는 구현되지 않음)");
-    // navigation.navigate('Register'); // AuthNavigator에 Register 화면이 있다면
   };
 
   return (
     <View style={styles.container}>
       {/* 상단 로고 및 텍스트 */}
       <View style={styles.header}>
-        <Image source={{ uri: MEDISON_LOGO }} style={styles.logo} />
-        <Text style={styles.medisonText}>MEDISON</Text>
+        <Image source={MEDISON_LOGO} style={styles.logo} /> {/* source={MEDISON_LOGO}로 변경 */}
+        {/* 이미지에 이미 "MEDISON" 텍스트가 포함되어 있다면 아래 Text 컴포넌트는 제거할 수 있습니다. */}
+
       </View>
 
       {/* 로그인 카드 컨테이너 */}
       <View style={styles.card}>
-        {/* 사용자 ID 입력 */}
         <TextInput
           style={styles.input}
           placeholder="사용자 ID"
@@ -72,38 +59,33 @@ function LoginScreen() {
           onChangeText={setUserId}
           autoCapitalize="none"
         />
-
-        {/* 비밀번호 입력 */}
         <TextInput
           style={styles.input}
           placeholder="비밀번호"
           placeholderTextColor="#999"
-          secureTextEntry // 비밀번호 숨김
+          secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
-
-        {/* 로그인 버튼 */}
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>로그인</Text>
         </TouchableOpacity>
 
-        {/* 또는 구분선 */}
         <Text style={styles.orText}>또는</Text>
 
-        {/* 지문/홍채 버튼 컨테이너 */}
         <View style={styles.biometricButtonsContainer}>
           <TouchableOpacity
             style={styles.biometricButton}
-            onPress={() => handleBiometricLogin('지문')} // 지문 버튼 클릭 시
+            onPress={() => handleBiometricLogin('지문')}
           >
             <FontAwesome5 name="fingerprint" size={24} color="#333" />
             <Text style={styles.biometricButtonText}>지문</Text>
           </TouchableOpacity>
 
+          {/* 홍채 버튼이 주석 처리되어 있으므로 그대로 유지합니다. */}
           {/* <TouchableOpacity
             style={styles.biometricButton}
-            onPress={() => handleBiometricLogin('홍채')} // 홍채 버튼 클릭 시
+            onPress={() => handleBiometricLogin('홍채')}
           >
             <MaterialCommunityIcons name="eye-outline" size={24} color="#333" />
             <Text style={styles.biometricButtonText}>홍채</Text>
@@ -123,7 +105,7 @@ function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a', // 어두운 배경색
+    backgroundColor: '#1a1a1a',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -133,30 +115,33 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50, // 원형 로고
-    backgroundColor: '#fff', // 로고 배경색 (이미지 없을 시)
+    // 이미지의 원본 비율을 유지하면서 크기 조정
+    width: 300, // 이미지 너비 조정 (필요에 따라 조절)
+    height: 170, // 이미지 높이 조정 (필요에 따라 조절)
+  
+    // borderRadius: 50, // 원형 로고가 아니므로 제거하거나 조절
+    backgroundColor: 'transparent', // 로고 배경색을 투명하게 설정
     marginBottom: 10,
   },
   medisonText: {
+    // 이미지에 이미 "MEDISON" 텍스트가 포함되어 있다면 이 스타일은 필요 없을 수 있습니다.
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff', // 흰색 텍스트
-    letterSpacing: 2, // 글자 간격
+    color: '#fff',
+    letterSpacing: 2,
   },
   card: {
     width: '90%',
     maxWidth: 400,
-    backgroundColor: '#fff', // 흰색 카드 배경
-    borderRadius: 20, // 둥근 모서리
+    backgroundColor: '#fff',
+    borderRadius: 20,
     padding: 30,
     alignItems: 'center',
-    shadowColor: '#000', // 그림자
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 8, // 안드로이드 그림자
+    elevation: 8,
   },
   input: {
     width: '100%',
@@ -172,7 +157,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: '100%',
     height: 50,
-    backgroundColor: '#4a47ff', // 파란색 버튼
+    backgroundColor: '#4a47ff',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -199,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5', // 밝은 회색 배경
+    backgroundColor: '#f5f5f5',
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,
@@ -218,11 +203,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   registerText: {
-    color: '#ccc', // 회색 텍스트
+    color: '#ccc',
     fontSize: 16,
   },
   registerLink: {
-    color: '#4a47ff', // 파란색 링크
+    color: '#4a47ff',
     fontSize: 16,
     fontWeight: 'bold',
   },

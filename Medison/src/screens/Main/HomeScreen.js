@@ -5,8 +5,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } fr
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-
-const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO';
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -27,8 +26,7 @@ function HomeScreen() {
         {/* 상단 헤더 */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={{ uri: MEDISON_LOGO }} style={styles.headerLogo} />
-            <Text style={styles.headerMedisonText}>MEDISON</Text>
+            <Image source={MEDISON_LOGO} style={styles.logo} />
           </View>
           <View style={styles.headerRight}>
             <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
@@ -126,17 +124,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headerLogo: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#000', // 로고 배경색
+  logo: {
+    width: 300,
+    height: 170,
+    backgroundColor: 'transparent',
     marginRight: 10,
-  },
-  headerMedisonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    marginBottom: 10,
   },
   headerRight: {
     flexDirection: 'row',

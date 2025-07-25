@@ -4,8 +4,7 @@ import React from 'react'; // useEffect는 이제 필요 없으므로 제거
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'; // Alert 추가
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-
-const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO';
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
 function FingerPrintScreen() {
   const navigation = useNavigation();
@@ -49,8 +48,8 @@ function FingerPrintScreen() {
 
       {/* 상단 로고 및 텍스트 */}
       <View style={styles.header}>
-        <Image source={{ uri: MEDISON_LOGO }} style={styles.logo} />
-        <Text style={styles.medisonText}>MEDISON</Text>
+        <Image source={MEDISON_LOGO} style={styles.logo} />
+        {/* 이미지에 이미 "MEDISON" 텍스트가 포함되어 있다면 아래 Text 컴포넌트는 제거할 수 있습니다. */}
       </View>
 
       {/* 지문 스캔 카드 컨테이너 */}
@@ -98,10 +97,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#fff',
+    width: 300,
+    height: 170,
+    backgroundColor: 'transparent',
     marginBottom: 10,
   },
   medisonText: {

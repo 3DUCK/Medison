@@ -1,13 +1,10 @@
 // src/screens/FailScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // X 아이콘을 위해 필요
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-// 여기서는 임시로 placeholder 이미지를 사용합니다.
-const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO'; // 임시 로고 이미지 URL
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
 function FailScreen() {
   const navigation = useNavigation();
@@ -27,8 +24,8 @@ function FailScreen() {
     <View style={styles.container}>
       {/* 상단 로고 및 텍스트 */}
       <View style={styles.header}>
-        <Image source={{ uri: MEDISON_LOGO }} style={styles.logo} />
-        <Text style={styles.medisonText}>MEDISON</Text>
+        <Image source={MEDISON_LOGO} style={styles.logo} />
+        {/* 이미지에 이미 "MEDISON" 텍스트가 포함되어 있다면 아래 Text 컴포넌트는 제거할 수 있습니다. */}
       </View>
 
       {/* 실패 메시지 카드 컨테이너 */}
@@ -69,10 +66,9 @@ const styles = StyleSheet.create({
     marginBottom: 40, // 카드와의 간격
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50, // 원형 로고
-    backgroundColor: '#000', // 로고 배경색 (이미지 없을 시)
+    width: 300,
+    height: 170,
+    backgroundColor: 'transparent',
     marginBottom: 10,
   },
   medisonText: {

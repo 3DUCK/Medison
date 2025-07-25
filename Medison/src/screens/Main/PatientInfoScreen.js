@@ -4,9 +4,9 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, SafeAreaView } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // 아이콘
 import { useNavigation } from '@react-navigation/native';
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
 // 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-const MEDISON_LOGO = 'https://placehold.co/40x40/000000/FFFFFF?text=LOGO'; // 상단 로고 이미지 URL
 const PROFILE_PLACEHOLDER = 'https://placehold.co/100x100/CCCCCC/FFFFFF?text=👤'; // 프로필 이미지 대체 URL
 
 function PatientInfoScreen() {
@@ -39,10 +39,7 @@ function PatientInfoScreen() {
     <SafeAreaView style={styles.safeArea}>
       {/* 상단 헤더 (ScrollView 외부에 위치하여 스크롤되지 않도록 함) */}
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Image source={{ uri: MEDISON_LOGO }} style={styles.headerLogo} />
-          <Text style={styles.headerMedisonText}>MEDISON</Text>
-        </View>
+        <Image source={MEDISON_LOGO} style={styles.logo} />
         <View style={styles.headerRight}>
           <TouchableOpacity onPress={() => Alert.alert('알림', '알림 기능은 아직 구현되지 않았습니다.')}>
             <FontAwesome5 name="bell" size={22} color="#666" style={styles.headerIcon} />
@@ -158,21 +155,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     // paddingTop는 SafeAreaView가 처리하므로 제거하거나 조절
   },
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  headerLogo: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#000', // 로고 배경색
-    marginRight: 10,
-  },
-  headerMedisonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+  logo: {
+    width: 300,
+    height: 170,
+    backgroundColor: 'transparent',
+    marginBottom: 10,
   },
   headerRight: {
     flexDirection: 'row',

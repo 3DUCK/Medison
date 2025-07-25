@@ -4,10 +4,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; // X 아이콘을 위해 필요
 import { useNavigation } from '@react-navigation/native'; // useNavigation 훅 임포트!
-
-// 참고: 실제 앱에서는 로고 이미지를 assets 폴더에 넣고 require로 불러옵니다.
-// 여기서는 임시로 placeholder 이미지를 사용합니다.
-const MEDISON_LOGO = 'https://placehold.co/100x100/000000/FFFFFF?text=LOGO'; // 임시 로고 이미지 URL
+import MEDISON_LOGO from '../../constants/medisonLogo';
 
 function IrisFailScreen() {
   const navigation = useNavigation();
@@ -29,8 +26,7 @@ function IrisFailScreen() {
     <View style={styles.container}>
       {/* 상단 로고 및 텍스트 */}
       <View style={styles.header}>
-        <Image source={{ uri: MEDISON_LOGO }} style={styles.logo} />
-        <Text style={styles.medisonText}>MEDISON</Text>
+        <Image source={MEDISON_LOGO} style={styles.logo} />
       </View>
 
       {/* 실패 메시지 카드 컨테이너 */}
@@ -71,17 +67,10 @@ const styles = StyleSheet.create({
     marginBottom: 40, // 카드와의 간격
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50, // 원형 로고
-    backgroundColor: '#000', // 로고 배경색 (이미지 없을 시)
+    width: 300,
+    height: 170,
+    backgroundColor: 'transparent',
     marginBottom: 10,
-  },
-  medisonText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333', // 어두운 텍스트
-    letterSpacing: 2, // 글자 간격
   },
   card: {
     width: '90%',
