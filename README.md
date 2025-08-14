@@ -62,11 +62,8 @@ npm start # 또는 expo start
 |:---:|
 | ![아이디어 판넬 이미지](./images/idea_panel.png) |
 
-> 이미지는 `images` 폴더에 `idea_panel.png` 파일을 넣어주세요.
 
 ### 아이디어 소개 영상
-
-> 아이디어 소개 영상은 아래 링크에 업로드해 주세요.
 > [아이디어 소개 영상 링크](https://youtu.be/4LsBKYRfgjA)
 
 ---
